@@ -64,7 +64,13 @@ public class PaymentResultPresenter extends MvpPresenter<PaymentResultPropsView,
         if (isCallForAuthorize()) {
             amountFormat = new AmountFormat(site.getCurrencyId(), amount, paymentResult.getPaymentData().getPaymentMethod().getName());
         }
-        getView().setPropPaymentResult(paymentResult, paymentResultScreenPreference, amountFormat);
+
+        boolean showLoading = false;
+        if (hasToAskForInstructions()) {
+            showLoading = true;
+        }
+        getView().setPropPaymentResult(paymentResult, paymentResultScreenPreference, amountFormat, showLoading);
+
         checkGetInstructions();
     }
 
@@ -120,11 +126,15 @@ public class PaymentResultPresenter extends MvpPresenter<PaymentResultPropsView,
     }
 
     private void checkGetInstructions() {
-        if (isPaymentMethodOff()) {
+        if (hasToAskForInstructions()) {
             getInstructionsAsync(paymentResult.getPaymentId(), paymentResult.getPaymentData().getPaymentMethod().getPaymentTypeId());
         } else {
             getView().notifyPropsChanged();
         }
+    }
+
+    private boolean hasToAskForInstructions() {
+        return isPaymentMethodOff();
     }
 
     private void getInstructionsAsync(final Long paymentId, final String paymentTypeId) {
@@ -171,7 +181,7 @@ public class PaymentResultPresenter extends MvpPresenter<PaymentResultPropsView,
         if (instruction == null) {
             navigator.showError(new MercadoPagoError(getResourcesProvider().getStandardErrorMessage(), false), ApiUtil.RequestOrigin.GET_INSTRUCTIONS);
         } else {
-            getView().setPropInstruction(instruction, new AmountFormat(site.getCurrencyId(), amount));
+            getView().setPropInstruction(instruction, new AmountFormat(site.getCurrencyId(), amount), false);
 
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

@@ -8,9 +8,9 @@ import com.mercadopago.preferences.PaymentResultScreenPreference;
 
 public interface PaymentResultPropsView extends MvpView {
 
-    void setPropPaymentResult(final PaymentResult paymentResult, final PaymentResultScreenPreference paymentResultScreenPreference, final AmountFormat amountFormat);
+    void setPropPaymentResult(final PaymentResult paymentResult, final PaymentResultScreenPreference paymentResultScreenPreference, final AmountFormat amountFormat, final boolean showLoading);
 
-    void setPropInstruction(final Instruction instruction, final AmountFormat amountFormat);
+    void setPropInstruction(final Instruction instruction, final AmountFormat amountFormat, final boolean showLoading);
 
     void notifyPropsChanged();
 }

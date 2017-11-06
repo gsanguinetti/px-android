@@ -33,24 +33,25 @@ public class HeaderRenderer extends Renderer<HeaderComponent> {
         final ViewGroup iconParentViewGroup = (ViewGroup) headerView.findViewById(R.id.iconContainer);
         final TextView labelTextView = (TextView) headerView.findViewById(R.id.mpsdkHeaderLabel);
         final int background = ContextCompat.getColor(context, component.props.background);
+        final int statusBarColor = ContextCompat.getColor(context, component.props.statusBarColor);
 
         headerContainer.setBackgroundColor(background);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = ((Activity) context).getWindow(); //context.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(background);
-        }
-
-        headerContainer.setBackgroundColor(ContextCompat.getColor(context, component.props.background));
+        setStatusBarColor(statusBarColor);
         setText(labelTextView, component.props.label);
-
         renderIcon(iconParentViewGroup);
         renderTitle(titleTextView);
 
         //TODO: Reimplementar el body height en un componente.
 
         return headerView;
+    }
+
+    private void setStatusBarColor(final int statusBarColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = ((Activity) context).getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusBarColor);
+        }
     }
 
     private void renderIcon(@NonNull final ViewGroup parent) {

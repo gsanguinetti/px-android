@@ -14,6 +14,7 @@ public class HeaderProps {
 
     public final String height;
     public final int background;
+    public final int statusBarColor;
     public final int iconImage;
     public final int badgeImage;
     public final String title;
@@ -22,6 +23,7 @@ public class HeaderProps {
 
     public HeaderProps(final String height,
                        @DrawableRes final int background,
+                       @DrawableRes final int statusBarColor,
                        @DrawableRes final int iconImage,
                        @DrawableRes final int badgeImage,
                        final String title,
@@ -29,6 +31,7 @@ public class HeaderProps {
                        final AmountFormat formatter) {
         this.height = height;
         this.background = background;
+        this.statusBarColor = statusBarColor;
         this.iconImage = iconImage;
         this.badgeImage = badgeImage;
         this.title = title;
@@ -39,6 +42,7 @@ public class HeaderProps {
     public HeaderProps(@NonNull final Builder builder) {
         this.height = builder.height;
         this.background = builder.background;
+        this.statusBarColor = builder.statusBarColor;
         this.iconImage = builder.iconImage;
         this.badgeImage = builder.badgeImage;
         this.title = builder.title;
@@ -50,6 +54,7 @@ public class HeaderProps {
         return new Builder()
                 .setHeight(this.height)
                 .setBackground(this.background)
+                .setStatusBarColor(this.statusBarColor)
                 .setIconImage(this.iconImage)
                 .setBadgeImage(this.badgeImage)
                 .setTitle(this.title)
@@ -63,6 +68,7 @@ public class HeaderProps {
 
         public String height;
         public int background;
+        public int statusBarColor;
         public int iconImage;
         public int badgeImage;
         public String title;
@@ -71,6 +77,11 @@ public class HeaderProps {
 
         public Builder setBackground(@DrawableRes final int background) {
             this.background = background;
+            return this;
+        }
+
+        public Builder setStatusBarColor(int statusBarColor) {
+            this.statusBarColor = statusBarColor;
             return this;
         }
 

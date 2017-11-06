@@ -31,22 +31,25 @@ public class PaymentResultPropsMutator implements Mutator, PaymentResultPropsVie
     @Override
     public void setPropPaymentResult(@NonNull final PaymentResult paymentResult,
                                      @NonNull final PaymentResultScreenPreference paymentResultScreenPreference,
-                                     final AmountFormat amountFormat) {
+                                     final AmountFormat amountFormat,
+                                     final boolean showLoading) {
         props = props.toBuilder()
                 .setPaymentResult(paymentResult)
                 .setPreference(paymentResultScreenPreference)
                 .setHeaderMode("wrap")
                 .setAmountFormat(amountFormat)
+                .setLoading(showLoading)
                 .build();
     }
 
     @Override
     public void setPropInstruction(@NonNull final Instruction instruction,
-                                   @NonNull final AmountFormat amountFormat) {
+                                   @NonNull final AmountFormat amountFormat,
+                                   final boolean showLoading) {
         props = props.toBuilder()
                 .setInstruction(instruction)
                 .setAmountFormat(amountFormat)
-                .setLoading(false)
+                .setLoading(showLoading)
                 .build();
     }
 

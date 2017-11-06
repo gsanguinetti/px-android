@@ -27,10 +27,15 @@ public class PaymentResultContainer extends Component<PaymentResultProps> {
     public static final int RED_BACKGROUND_COLOR = R.color.mpsdk_red_MP;
     public static final int ORANGE_BACKGROUND_COLOR = R.color.mpsdk_orange_MP;
 
-    public static final int DEFAULT_ICON_IMAGE = R.drawable.mpsdk_icon_default;
-    public static final int ITEM_ICON_IMAGE = R.drawable.mpsdk_icon_product;
-    public static final int CARD_ICON_IMAGE = R.drawable.mpsdk_icon_card;
-    public static final int BOLETO_ICON_IMAGE = R.drawable.mpsdk_icon_boleto;
+    private static final int DEFAULT_STATUS_BAR_COLOR = R.color.mpsdk_blue_status_MP;
+    private static final int GREEN_STATUS_BAR_COLOR = R.color.mpsdk_green_status_MP;
+    private static final int RED_STATUS_BAR_COLOR = R.color.mpsdk_red_status_MP;
+    private static final int ORANGE_STATUS_BAR_COLOR = R.color.mpsdk_orange_status_MP;
+
+    private static final int DEFAULT_ICON_IMAGE = R.drawable.mpsdk_icon_default;
+    private static final int ITEM_ICON_IMAGE = R.drawable.mpsdk_icon_product;
+    private static final int CARD_ICON_IMAGE = R.drawable.mpsdk_icon_card;
+    private static final int BOLETO_ICON_IMAGE = R.drawable.mpsdk_icon_boleto;
 
     //armar componente Badge que va como hijo
     public static final int DEFAULT_BADGE_IMAGE = 0;
@@ -60,6 +65,7 @@ public class PaymentResultContainer extends Component<PaymentResultProps> {
         HeaderProps headerProps = new HeaderProps.Builder()
                 .setHeight(props.headerMode)
                 .setBackground(getBackground(props.paymentResult))
+                .setStatusBarColor(getStatusBarColor(props.paymentResult))
                 .setIconImage(getIconImage(props))
                 .setBadgeImage(getBadgeImage(props))
                 .setTitle(getTitle(props))
@@ -90,7 +96,6 @@ public class PaymentResultContainer extends Component<PaymentResultProps> {
     }
 
     private int getBackground(@NonNull final PaymentResult paymentResult) {
-
         if (paymentResult == null) {
             return DEFAULT_BACKGROUND_COLOR;
         } else if (isGreenBackground(paymentResult)) {
@@ -101,6 +106,20 @@ public class PaymentResultContainer extends Component<PaymentResultProps> {
             return ORANGE_BACKGROUND_COLOR;
         } else {
             return DEFAULT_BACKGROUND_COLOR;
+        }
+    }
+
+    private int getStatusBarColor(@NonNull final PaymentResult paymentResult) {
+        if (paymentResult == null) {
+            return DEFAULT_STATUS_BAR_COLOR;
+        } else if (isGreenBackground(paymentResult)) {
+            return GREEN_STATUS_BAR_COLOR;
+        } else if (isRedBackground(paymentResult)) {
+            return RED_STATUS_BAR_COLOR;
+        } else if (isOrangeBackground(paymentResult)) {
+            return ORANGE_STATUS_BAR_COLOR;
+        } else {
+            return DEFAULT_STATUS_BAR_COLOR;
         }
     }
 
