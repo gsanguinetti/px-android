@@ -498,7 +498,7 @@ public class CongratsActivity extends MercadoPagoBaseActivity implements ReviewS
         StringBuilder sb = new StringBuilder();
 
         sb.append("(");
-        sb.append(CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId, true));
+        sb.append(CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId));
 
         sb.append(")");
         Spanned spannedFullAmountText = CurrenciesUtil.formatCurrencyInText(mTotalAmount,
@@ -526,7 +526,7 @@ public class CongratsActivity extends MercadoPagoBaseActivity implements ReviewS
                 if (mDiscount != null) {
                     mTotalAmount = mDiscount.getAmountWithDiscount(mTotalAmount);
                 }
-                sb.append(CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId, true));
+                sb.append(CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId));
                 mAmountDescription.setText(CurrenciesUtil.formatCurrencyInText(mTotalAmount,
                         mCurrencyId, sb.toString(), false, true));
                 mAmountDescription.setVisibility(View.VISIBLE);
@@ -573,7 +573,7 @@ public class CongratsActivity extends MercadoPagoBaseActivity implements ReviewS
                 //Installments quantity 0 or 1
                 StringBuilder sb = new StringBuilder();
 
-                sb.append(CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId, true));
+                sb.append(CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId));
                 Spanned spannedInstallmentsText = CurrenciesUtil.formatCurrencyInText(mTotalAmount,
                         mCurrencyId, sb.toString(), false, true);
 
@@ -660,7 +660,7 @@ public class CongratsActivity extends MercadoPagoBaseActivity implements ReviewS
         sb.append(" ");
         sb.append(getString(R.string.mpsdk_installments_by));
         sb.append(" ");
-        sb.append(CurrenciesUtil.formatNumber(mInstallmentsAmount, mCurrencyId, true));
+        sb.append(CurrenciesUtil.formatNumber(mInstallmentsAmount, mCurrencyId));
         return CurrenciesUtil.formatCurrencyInText(mInstallmentsAmount,
                 mCurrencyId, sb.toString(), false, true);
     }

@@ -217,7 +217,7 @@ public class CallForAuthorizeActivity extends MercadoPagoBaseActivity implements
 
     private void setDescription() {
         if (isPaymentMethodValid() && isCurrencyIdValid() && isTotalPaidAmountValid()) {
-            String totalPaidAmount = CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId, true);
+            String totalPaidAmount = CurrenciesUtil.formatNumber(mTotalAmount, mCurrencyId);
             String titleWithFormat = String.format(getString(R.string.mpsdk_title_activity_call_for_authorize), "<br>" + mPaymentMethodName, "<br>" + totalPaidAmount);
 
             mCallForAuthTitle.setText(CurrenciesUtil.formatCurrencyInText(mTotalAmount, mCurrencyId, titleWithFormat, true, true));

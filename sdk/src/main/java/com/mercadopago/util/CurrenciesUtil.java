@@ -40,7 +40,7 @@ public class CurrenciesUtil {
         put(CURRENCY_URUGUAY, new Currency(CURRENCY_URUGUAY, "Peso Uruguayo", "$", 2, ",".charAt(0), ".".charAt(0)));
     }};
 
-    public static String formatNumber(BigDecimal amount, String currencyId, boolean hasSpace) {
+    public static String formatNumber(BigDecimal amount, String currencyId) {
         // Get currency configuration
         Currency currency = currenciesList.get(currencyId);
 
@@ -58,9 +58,7 @@ public class CurrenciesUtil {
             // return formatted string
             StringBuilder builder = new StringBuilder();
             builder.append(currency.getSymbol());
-            if (hasSpace) {
-                builder.append(" ");
-            }
+            builder.append(" ");
             builder.append(df.format(amount));
             return builder.toString();
 
@@ -70,7 +68,7 @@ public class CurrenciesUtil {
     }
 
     public static Spanned getFormattedAmount(BigDecimal amount, String currencyId) {
-        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId, true);
+        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId);
         Spanned amountText = CurrenciesUtil.formatCurrencyInText(amount, currencyId, originalNumber, false, true);
         return amountText;
     }
@@ -161,7 +159,7 @@ public class CurrenciesUtil {
                                                boolean symbolUp, boolean decimalsUp) {
         Spanned spannedAmount;
         Currency currency = currenciesList.get(currencyId);
-        String formattedAmount = formatNumber(amount, currencyId, true);
+        String formattedAmount = formatNumber(amount, currencyId);
         if (formattedAmount != null) {
             String spannedString = getSpannedString(currency, formattedAmount, symbolUp, decimalsUp);
 

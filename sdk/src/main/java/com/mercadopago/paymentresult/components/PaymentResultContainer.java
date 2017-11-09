@@ -32,10 +32,10 @@ public class PaymentResultContainer extends Component<PaymentResultProps> {
     private static final int RED_STATUS_BAR_COLOR = R.color.mpsdk_red_status_MP;
     private static final int ORANGE_STATUS_BAR_COLOR = R.color.mpsdk_orange_status_MP;
 
-    private static final int DEFAULT_ICON_IMAGE = R.drawable.mpsdk_icon_default;
-    private static final int ITEM_ICON_IMAGE = R.drawable.mpsdk_icon_product;
-    private static final int CARD_ICON_IMAGE = R.drawable.mpsdk_icon_card;
-    private static final int BOLETO_ICON_IMAGE = R.drawable.mpsdk_icon_boleto;
+    public static final int DEFAULT_ICON_IMAGE = R.drawable.mpsdk_icon_default;
+    public static final int ITEM_ICON_IMAGE = R.drawable.mpsdk_icon_product;
+    public static final int CARD_ICON_IMAGE = R.drawable.mpsdk_icon_card;
+    public static final int BOLETO_ICON_IMAGE = R.drawable.mpsdk_icon_boleto;
 
     //armar componente Badge que va como hijo
     public static final int DEFAULT_BADGE_IMAGE = 0;
