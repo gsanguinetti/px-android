@@ -83,7 +83,7 @@ public class PayerCostRow implements PayerCostViewController {
         mTotalText.setVisibility(View.VISIBLE);
         StringBuilder sb = new StringBuilder();
         sb.append("(");
-        sb.append(CurrenciesUtil.formatNumber(mPayerCost.getTotalAmount(), mCurrencyId));
+        sb.append(CurrenciesUtil.formatNumber(mPayerCost.getTotalAmount(), mCurrencyId, true));
         sb.append(")");
         Spanned spannedFullAmountText = CurrenciesUtil.formatCurrencyInText(mPayerCost.getTotalAmount(),
                 mCurrencyId, sb.toString(), false, true);
@@ -97,7 +97,7 @@ public class PayerCostRow implements PayerCostViewController {
         sb.append(mContext.getString(R.string.mpsdk_installments_by));
         sb.append(" ");
 
-        sb.append(CurrenciesUtil.formatNumber(mPayerCost.getInstallmentAmount(), mCurrencyId));
+        sb.append(CurrenciesUtil.formatNumber(mPayerCost.getInstallmentAmount(), mCurrencyId, true));
         Spanned spannedInstallmentsText = CurrenciesUtil.formatCurrencyInText(mPayerCost.getInstallmentAmount(),
                 mCurrencyId, sb.toString(), false, true);
         mInstallmentsTextView.setText(spannedInstallmentsText);

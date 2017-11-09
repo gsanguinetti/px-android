@@ -6,7 +6,8 @@ import com.mercadopago.components.Mutator;
 import com.mercadopago.components.MutatorPropsListener;
 import com.mercadopago.model.Instruction;
 import com.mercadopago.model.PaymentResult;
-import com.mercadopago.paymentresult.model.AmountFormat;
+import com.mercadopago.paymentresult.formatter.AmountFormat;
+import com.mercadopago.paymentresult.formatter.HeaderTitleFormatter;
 import com.mercadopago.paymentresult.props.PaymentResultProps;
 import com.mercadopago.preferences.PaymentResultScreenPreference;
 
@@ -31,7 +32,7 @@ public class PaymentResultPropsMutator implements Mutator, PaymentResultPropsVie
     @Override
     public void setPropPaymentResult(@NonNull final PaymentResult paymentResult,
                                      @NonNull final PaymentResultScreenPreference paymentResultScreenPreference,
-                                     final AmountFormat amountFormat,
+                                     final HeaderTitleFormatter amountFormat,
                                      final boolean showLoading) {
         props = props.toBuilder()
                 .setPaymentResult(paymentResult)
@@ -44,7 +45,7 @@ public class PaymentResultPropsMutator implements Mutator, PaymentResultPropsVie
 
     @Override
     public void setPropInstruction(@NonNull final Instruction instruction,
-                                   @NonNull final AmountFormat amountFormat,
+                                   @NonNull final HeaderTitleFormatter amountFormat,
                                    final boolean showLoading) {
         props = props.toBuilder()
                 .setInstruction(instruction)

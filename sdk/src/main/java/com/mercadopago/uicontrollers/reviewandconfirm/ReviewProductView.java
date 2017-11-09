@@ -117,12 +117,12 @@ public class ReviewProductView implements ReviewProductViewController {
             BigDecimal price = item.getUnitPrice();
 
             if (mReviewScreenPreference != null && !mReviewScreenPreference.showAmountTitle()) {
-                priceText = CurrenciesUtil.formatNumber(price, currencyId);
+                priceText = CurrenciesUtil.formatNumber(price, currencyId, true);
             } else if (mReviewScreenPreference != null && mReviewScreenPreference.showAmountTitle() && !isEmpty(mReviewScreenPreference.getAmountTitle())) {
-                String originalNumber = CurrenciesUtil.formatNumber(price, currencyId);
+                String originalNumber = CurrenciesUtil.formatNumber(price, currencyId, true);
                 priceText = mReviewScreenPreference.getAmountTitle() + originalNumber;
             } else {
-                String originalNumber = CurrenciesUtil.formatNumber(price, currencyId);
+                String originalNumber = CurrenciesUtil.formatNumber(price, currencyId, true);
                 priceText = mContext.getString(R.string.mpsdk_review_product_price, originalNumber);
             }
 

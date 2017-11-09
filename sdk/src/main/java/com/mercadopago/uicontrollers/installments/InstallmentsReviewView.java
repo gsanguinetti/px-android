@@ -65,7 +65,7 @@ public class InstallmentsReviewView implements InstallmentsView {
         stringBuilder.append(mContext.getString(R.string.mpsdk_installments_by));
         stringBuilder.append(" ");
 
-        stringBuilder.append(CurrenciesUtil.formatNumber(mPayerCost.getInstallmentAmount(), mCurrencyId));
+        stringBuilder.append(CurrenciesUtil.formatNumber(mPayerCost.getInstallmentAmount(), mCurrencyId, true));
         Spanned spannedInstallmentsText = CurrenciesUtil.formatCurrencyInText(mPayerCost.getInstallmentAmount(),
                 mCurrencyId, stringBuilder.toString(), false, true);
 
@@ -75,7 +75,7 @@ public class InstallmentsReviewView implements InstallmentsView {
     private void setTotalAmountWithRateText() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("(");
-        stringBuilder.append(CurrenciesUtil.formatNumber(mPayerCost.getTotalAmount(), mCurrencyId));
+        stringBuilder.append(CurrenciesUtil.formatNumber(mPayerCost.getTotalAmount(), mCurrencyId, true));
         stringBuilder.append(")");
         Spanned spannedFullAmountText = CurrenciesUtil.formatCurrencyInText(mPayerCost.getTotalAmount(),
                 mCurrencyId, stringBuilder.toString(), false, true);

@@ -1,7 +1,6 @@
 package com.mercadopago.util;
 
-import android.text.Html;
-import android.text.Spanned;
+import android.text.*;
 
 import com.mercadopago.model.Currency;
 
@@ -29,7 +28,7 @@ public class CurrenciesUtil {
 
     }
 
-    private static Map<String, Currency> currenciesList = new HashMap<String, Currency>() {{
+    public static Map<String, Currency> currenciesList = new HashMap<String, Currency>() {{
         put(CURRENCY_ARGENTINA, new Currency(CURRENCY_ARGENTINA, "Peso argentino", "$", 2, ",".charAt(0), ".".charAt(0)));
         put(CURRENCY_BRAZIL, new Currency(CURRENCY_BRAZIL, "Real", "R$", 2, ",".charAt(0), ".".charAt(0)));
         put(CURRENCY_CHILE, new Currency(CURRENCY_CHILE, "Peso chileno", "$", 0, ",".charAt(0), ".".charAt(0)));
@@ -37,11 +36,11 @@ public class CurrenciesUtil {
         put(CURRENCY_MEXICO, new Currency(CURRENCY_MEXICO, "Peso mexicano", "$", 2, ".".charAt(0), ",".charAt(0)));
         put(CURRENCY_VENEZUELA, new Currency(CURRENCY_VENEZUELA, "Bolivar fuerte", "BsF", 2, ",".charAt(0), ".".charAt(0)));
         put(CURRENCY_USA, new Currency(CURRENCY_USA, "Dolar americano", "US$", 2, ",".charAt(0), ".".charAt(0)));
-        put(CURRENCY_PERU, new Currency(CURRENCY_PERU,"Soles", "S/.",2,",".charAt(0),".".charAt(0)));
-        put(CURRENCY_URUGUAY , new Currency(CURRENCY_URUGUAY,"Peso Uruguayo", "$",2,",".charAt(0),".".charAt(0)));
+        put(CURRENCY_PERU, new Currency(CURRENCY_PERU, "Soles", "S/.", 2, ",".charAt(0), ".".charAt(0)));
+        put(CURRENCY_URUGUAY, new Currency(CURRENCY_URUGUAY, "Peso Uruguayo", "$", 2, ",".charAt(0), ".".charAt(0)));
     }};
 
-    public static String formatNumber(BigDecimal amount, String currencyId) {
+    public static String formatNumber(BigDecimal amount, String currencyId, boolean hasSpace) {
         // Get currency configuration
         Currency currency = currenciesList.get(currencyId);
 
@@ -57,7 +56,13 @@ public class CurrenciesUtil {
             df.setMaximumFractionDigits(currency.getDecimalPlaces());
 
             // return formatted string
-            return currency.getSymbol() + " " + df.format(amount);
+            StringBuilder builder = new StringBuilder();
+            builder.append(currency.getSymbol());
+            if (hasSpace) {
+                builder.append(" ");
+            }
+            builder.append(df.format(amount));
+            return builder.toString();
 
         } else {
             return null;
@@ -65,7 +70,7 @@ public class CurrenciesUtil {
     }
 
     public static Spanned getFormattedAmount(BigDecimal amount, String currencyId) {
-        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId);
+        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId, true);
         Spanned amountText = CurrenciesUtil.formatCurrencyInText(amount, currencyId, originalNumber, false, true);
         return amountText;
     }
@@ -96,21 +101,50 @@ public class CurrenciesUtil {
         }
     }
 
+    public static String getDecimals(String currencyId, String amount) {
+        Currency currency = currenciesList.get(currencyId);
+        int decimalDivisionIndex = amount.indexOf(currency.getDecimalSeparator());
+        String decimals = null;
+        if (decimalDivisionIndex != -1) {
+            decimals = amount.substring(decimalDivisionIndex + 1, amount.length());
+        }
+        return decimals;
+    }
+
+    public static String getWholeNumber(String currencyId, String amount) {
+        Currency currency = currenciesList.get(currencyId);
+        int decimalDivisionIndex = amount.indexOf(currency.getDecimalSeparator());
+        String wholeNumber;
+        if (decimalDivisionIndex == -1) {
+            wholeNumber = amount;
+        } else {
+            wholeNumber = amount.substring(0, decimalDivisionIndex);
+        }
+        return wholeNumber;
+    }
+
+    public static String getWholeNumberWithThousandSeparator(String currencyId, String amount) {
+        Currency currency = currenciesList.get(currencyId);
+        String wholeNumber = getWholeNumber(currencyId, amount);
+
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setGroupingSeparator(currency.getThousandsSeparator());
+        DecimalFormat df = new DecimalFormat();
+        df.setDecimalFormatSymbols(dfs);
+        String formatedAmount = df.format(wholeNumber);
+
+        return formatedAmount;
+    }
+
     private static String getSpannedString(Currency currency, String formattedAmount, boolean symbolUp, boolean decimalsUp) {
 
         if (formattedAmount.contains(currency.getSymbol())) {
             formattedAmount = formattedAmount.replace(currency.getSymbol(), "");
         }
 
-        int decimalDivisionIndex = formattedAmount.indexOf(currency.getDecimalSeparator());
-        String wholeNumber = null;
-        String decimals = null;
-        if (decimalDivisionIndex == -1) {
-            wholeNumber = formattedAmount;
-        } else {
-            wholeNumber = formattedAmount.substring(0, decimalDivisionIndex);
-            decimals = formattedAmount.substring(decimalDivisionIndex + 1, formattedAmount.length());
-        }
+        String wholeNumber = getWholeNumber(currency.getId(), formattedAmount);
+        String decimals = getDecimals(currency.getId(), formattedAmount);
+
         StringBuilder htmlFormatBuilder = new StringBuilder();
 
         if (symbolUp) {
@@ -135,11 +169,12 @@ public class CurrenciesUtil {
         return formatCurrencyInText("", amount, currencyId, originalText, symbolUp, decimalsUp);
     }
 
+
     public static Spanned formatCurrencyInText(String amountPrefix, BigDecimal amount, String currencyId, String originalText,
                                                boolean symbolUp, boolean decimalsUp) {
         Spanned spannedAmount;
         Currency currency = currenciesList.get(currencyId);
-        String formattedAmount = formatNumber(amount, currencyId);
+        String formattedAmount = formatNumber(amount, currencyId, true);
         if (formattedAmount != null) {
             String spannedString = getSpannedString(currency, formattedAmount, symbolUp, decimalsUp);
 
@@ -153,6 +188,7 @@ public class CurrenciesUtil {
         }
         return spannedAmount;
     }
+
 
     public static boolean isValidCurrency(String currencyId) {
         return !TextUtil.isEmpty(currencyId) && currenciesList.containsKey(currencyId);

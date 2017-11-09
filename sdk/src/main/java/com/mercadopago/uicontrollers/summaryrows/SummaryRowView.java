@@ -58,7 +58,7 @@ public class SummaryRowView implements SummaryRowViewController {
 
         if (summaryRow.getSummaryItemType().equals(SummaryItemType.DISCOUNT)) {
             formattedAmountBuilder.append("-");
-            formattedAmountBuilder.append(CurrenciesUtil.formatNumber(summaryRow.getAmount(), summaryRow.getCurrencyId()));
+            formattedAmountBuilder.append(CurrenciesUtil.formatNumber(summaryRow.getAmount(), summaryRow.getCurrencyId(), true));
 
             mSummaryAmountText.setText(CurrenciesUtil.formatCurrencyInText(summaryRow.getAmount(), summaryRow.getCurrencyId(), formattedAmountBuilder.toString(), false, true));
         } else {

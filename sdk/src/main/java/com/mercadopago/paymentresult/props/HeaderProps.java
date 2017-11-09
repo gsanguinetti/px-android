@@ -3,7 +3,8 @@ package com.mercadopago.paymentresult.props;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
-import com.mercadopago.paymentresult.model.AmountFormat;
+import com.mercadopago.paymentresult.formatter.AmountFormat;
+import com.mercadopago.paymentresult.formatter.HeaderTitleFormatter;
 
 
 /**
@@ -19,7 +20,7 @@ public class HeaderProps {
     public final int badgeImage;
     public final String title;
     public final String label;
-    public final AmountFormat amountFormat;
+    public final HeaderTitleFormatter amountFormat;
 
     public HeaderProps(final String height,
                        @DrawableRes final int background,
@@ -28,7 +29,7 @@ public class HeaderProps {
                        @DrawableRes final int badgeImage,
                        final String title,
                        final String label,
-                       final AmountFormat formatter) {
+                       final HeaderTitleFormatter formatter) {
         this.height = height;
         this.background = background;
         this.statusBarColor = statusBarColor;
@@ -73,7 +74,7 @@ public class HeaderProps {
         public int badgeImage;
         public String title;
         public String label;
-        public AmountFormat amountFormat;
+        public HeaderTitleFormatter amountFormat;
 
         public Builder setBackground(@DrawableRes final int background) {
             this.background = background;
@@ -110,7 +111,7 @@ public class HeaderProps {
             return this;
         }
 
-        public Builder setAmountFormat(@NonNull final AmountFormat amountFormat) {
+        public Builder setAmountFormat(@NonNull final HeaderTitleFormatter amountFormat) {
             this.amountFormat = amountFormat;
             return this;
         }

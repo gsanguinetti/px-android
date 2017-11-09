@@ -329,7 +329,7 @@ public class DiscountsActivity extends AppCompatActivity implements DiscountsAct
         if (isAmountValid(mPresenter.getCouponAmount()) && isDiscountCurrencyIdValid()) {
 
             discountAmountBuilder.append("-");
-            discountAmountBuilder.append(CurrenciesUtil.formatNumber(mPresenter.getCouponAmount(), mPresenter.getCurrencyId()));
+            discountAmountBuilder.append(CurrenciesUtil.formatNumber(mPresenter.getCouponAmount(), mPresenter.getCurrencyId(), true));
             discountAmount = CurrenciesUtil.formatCurrencyInText(mPresenter.getCouponAmount(), mPresenter.getCurrencyId(), discountAmountBuilder.toString(), false, true);
 
             mReviewSummaryDiscountAmount.setText(discountAmount);
@@ -450,7 +450,7 @@ public class DiscountsActivity extends AppCompatActivity implements DiscountsAct
     }
 
     private Spanned getFormattedAmount(BigDecimal amount, String currencyId) {
-        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId);
+        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId, true);
         Spanned amountText = CurrenciesUtil.formatCurrencyInText(amount, currencyId, originalNumber, false, true);
         return amountText;
     }

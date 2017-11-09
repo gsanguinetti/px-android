@@ -242,7 +242,7 @@ public class DiscountRowView implements DiscountView {
     }
 
     private Spanned getFormattedAmount(BigDecimal amount, String currencyId) {
-        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId);
+        String originalNumber = CurrenciesUtil.formatNumber(amount, currencyId, true);
         Spanned amountText = CurrenciesUtil.formatCurrencyInText(amount, currencyId, originalNumber, false, true);
         return amountText;
     }

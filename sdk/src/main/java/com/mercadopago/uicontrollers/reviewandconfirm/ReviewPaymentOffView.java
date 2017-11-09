@@ -122,7 +122,7 @@ public class ReviewPaymentOffView extends Reviewable {
             description = mContext.getString(R.string.mpsdk_ryc_account_money_description);
         } else {
             int paymentInstructionsTemplate = ReviewUtil.getPaymentInstructionTemplate(mPaymentMethod);
-            String originalNumber = CurrenciesUtil.formatNumber(mAmount, mSite.getCurrencyId());
+            String originalNumber = CurrenciesUtil.formatNumber(mAmount, mSite.getCurrencyId(), true);
             String itemName;
             itemName = ReviewUtil.getPaymentMethodDescription(mPaymentMethod, mPaymentMethodDescriptionInfo, mContext);
             String completeDescription = mContext.getString(paymentInstructionsTemplate, originalNumber, itemName);
