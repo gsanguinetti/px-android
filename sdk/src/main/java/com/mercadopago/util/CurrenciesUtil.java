@@ -123,19 +123,6 @@ public class CurrenciesUtil {
         return wholeNumber;
     }
 
-    public static String getWholeNumberWithThousandSeparator(String currencyId, String amount) {
-        Currency currency = currenciesList.get(currencyId);
-        String wholeNumber = getWholeNumber(currencyId, amount);
-
-        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-        dfs.setGroupingSeparator(currency.getThousandsSeparator());
-        DecimalFormat df = new DecimalFormat();
-        df.setDecimalFormatSymbols(dfs);
-        String formatedAmount = df.format(wholeNumber);
-
-        return formatedAmount;
-    }
-
     private static String getSpannedString(Currency currency, String formattedAmount, boolean symbolUp, boolean decimalsUp) {
 
         if (formattedAmount.contains(currency.getSymbol())) {

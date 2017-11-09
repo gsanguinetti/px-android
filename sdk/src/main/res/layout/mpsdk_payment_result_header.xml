@@ -10,6 +10,7 @@
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
     android:paddingStart="25dp"
+    android:paddingBottom="50dp"
     tools:background="@color/mpsdk_green_MP">
 
     <FrameLayout
@@ -25,7 +26,7 @@
         android:layout_marginTop="13dp"
         android:gravity="center_horizontal"
         android:textColor="@color/mpsdk_white"
-        android:textSize="16sp"
+        android:textSize="16dp"
         tools:text="Lorem ipsum dolor sit" />
 
     <com.mercadopago.customviews.MPTextView
@@ -35,8 +36,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:textColor="@color/mpsdk_white"
-        android:textSize="26sp"
-        android:layout_marginBottom="50dp"
+        android:textSize="26dp"
         tools:text="¡Listo, se acreditó tu pago!" />
 
 </LinearLayout>
